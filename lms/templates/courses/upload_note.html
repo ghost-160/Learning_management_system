@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Upload Note - LMS{% endblock %}
+{% block content %}
+<div class="row">
+ <div class="col-md-8 mx-auto">
+ <div class="card">
+ <div class="card-body">
+ <h2 class="card-title text-center mb-4">Upload New Note</h2>
+ <form method="post" enctype="multipart/form-data">
+ {% csrf_token %}
+ <div class="mb-3">
+ <label for="title" class="form-label">Note Title</label>
+ <input type="text" class="form-control" id="title" name="title" required
+placeholder="Enter note title">
+ </div>
+ <div class="mb-3">
+ <label for="file" class="form-label">File</label>
+ <input type="file" class="form-control" id="file" name="file" required
+accept=".pdf,.doc,.docx,.txt,.ppt,.pptx">
+ <div class="form-text">Supported formats: PDF, DOC, DOCX, TXT, PPT,
+PPTX</div>
+ </div>
+ <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+ <a href="{% url 'core:dashboard' %}" class="btn btn-secondary me-md2">Cancel</a>
+ <button type="submit" class="btn btn-primary">Upload Note</button>
+ </div>
+ </form>
+ </div>
+ </div>
+
+ <div class="card mt-4">
+ <div class="card-body">
+ <h5 class="card-title">Upload Guidelines</h5>
+ <ul class="list-unstyled">
+ <li class="mb-2"> Ensure your file is properly named and organized</li>
+ <li class="mb-2"> Use descriptive titles for better searchability</li>
+ <li class="mb-2"> Only upload educational content</li>
+ <li class="mb-2"> Keep file sizes reasonable for faster downloads</li>
+ </ul>
+ </div>
+ </div>
+ </div>
+</div>
+{% endblock %}

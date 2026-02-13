@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Teacher Dashboard - LMS{% endblock %}
+{% block content %}
+<div class="row">
+ <div class="col-12">
+ <div class="card mb-4">
+ <div class="card-body">
+ <h2 class="card-title">Teacher Dashboard</h2>
+ <p class="text-muted">Welcome back, {{ user.username }}!</p>
+ <div class="row">
+ <div class="col-md-4">
+ <div class="card bg-primary text-white">
+ <div class="card-body text-center">
+ <h3>{{ user_notes.count }}</h3>
+ <p>Notes Uploaded</p>
+ </div>
+ </div>
+ </div>
+ <div class="col-md-4">
+ <div class="card bg-success text-white">
+ <div class="card-body text-center">
+ <h3>Teacher</h3>
+ <p>Your Role</p>
+ </div>
+ </div>
+ </div>
+ <div class="col-md-4">
+ <div class="card bg-info text-white">
+ <div class="card-body text-center">
+ <h3>{{ notes.count }}</h3>
+ <p>Total Notes in System</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+<div class="row">
+ <div class="col-12">
+ <div class="card">
+ <div class="card-body">
+ <div class="d-flex justify-content-between align-items-center mb-3">
+ <h3 class="card-title">Your Uploaded Notes</h3>
+ <a href="{% url 'courses:upload' %}" class="btn btn-success">Upload New Note</a>
+ </div>
+
+ {% if user_notes %}
+ <div class="table-responsive">
+ <table class="table table-striped">
+ <thead>
+ <tr>
+ <th>Title</th>
+ <th>Uploaded At</th>
+ <th>Actions</th>
+ </tr>
+ </thead>
+ <tbody>
+ {% for note in user_notes %}
+ <tr>
+ <td>{{ note.title }}</td>
+ <td>{{ note.uploaded_at|date:"M d, Y H:i" }}</td>
+ <td>
+ {% if note.file %}
+ <a href="{{ note.file.url }}" class="btn btn-sm btn-outline-primary" download>View</a>
+ {% else %}
+ <span class="badge bg-danger">No File</span>
+ {% endif %}
+ </td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+ </div>
+ {% else %}
+ <div class="text-center py-4">
+ <p class="text-muted">You haven't uploaded any notes yet.</p>
+ <a href="{% url 'courses:upload' %}" class="btn btn-primary">Upload Your First Note</a>
+ </div>
+ {% endif %}
+ </div>
+ </div>
+ </div>
+</div>
+{% endblock %}
